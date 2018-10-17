@@ -1,1 +1,1 @@
-fileSystemRoot=/Users/steplica/projects/rit/swen-440-project-2/orderSys
+fileSystemRoot= #copy this file to a new file called orderSys.properties and add your path to the "orderSys" folder here
