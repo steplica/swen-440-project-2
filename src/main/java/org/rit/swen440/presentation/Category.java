@@ -1,17 +1,16 @@
 package org.rit.swen440.presentation;
 
-public class category
-{
+public class Category {
     String desc;
     String name;
-    public category()
-    {
+
+    public Category() {
 
     }
 
-    public String getDesc()
-    {
+    public String getDesc() {
         return desc;
     }
+
     public String getName() { return name;}
 }
