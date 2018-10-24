@@ -1,39 +1,35 @@
 package org.rit.swen440.presentation;
 
-import java.util.*;
-import java.io.*;
+import java.io.File;
+import java.io.FilenameFilter;
+import java.util.ArrayList;
 
+public class Items {
+    ArrayList<Item> allItems;
 
-public class items
-{
-    ArrayList<item> allItems;
-    public items(String dir)
-    {
-        allItems = new ArrayList<item>();
+    public Items(String dir) {
+        allItems = new ArrayList<Item>();
         getItems(dir);
     }
 
-    public void getItems(String dir)
-    {
+    public void getItems(String dir) {
         File cats = new File(dir);//Must have app running in proper dir
-        FilenameFilter fnf = new FilenameFilter(){
-        
+        FilenameFilter fnf = new FilenameFilter() {
+
             @Override
             public boolean accept(File cats, String name) {
                 return !name.toLowerCase().endsWith(".cat");
             }
         };
         File[] fcats = cats.listFiles(fnf);
-        for (File f: fcats)
-        {   
+        for (File f : fcats) {
             //System.out.println("Reading:" + f.getName());
-            item it = new item(f.getAbsolutePath());
+            Item it = new Item(f.getAbsolutePath());
             allItems.add(it);
         }
     }
 
-    public ArrayList<item> ListItems()
-    {
+    public ArrayList<Item> ListItems() {
         return allItems;
     }
 }

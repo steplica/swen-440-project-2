@@ -1,34 +1,26 @@
 package org.rit.swen440.presentation;
 
 import org.rit.swen440.control.Controller;
-import org.rit.swen440.dataLayer.Category;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
-
-public class menumgr
-{
+public class MenuManager {
     int currentLevel = 0;
     String currentCategoryName;
     String currentItemName;
-    category currentCategory;
-    item currentItem;
+    Category currentCategory;
+    Item currentItem;
     private Controller controller;
 
-    public menumgr()
-    {
+    public MenuManager() {
         controller = new Controller(System.getProperty("fileSystemRoot"));
-
     }
 
-    public boolean loadLevel(int level)
-    {
+    public boolean loadLevel(int level) {
 //        System.out.println("Loading level:" + currentLevel);
-        switch (currentLevel)
-        {
+        switch (currentLevel) {
             case -1:
                 return true;
             case 0:
@@ -41,7 +33,7 @@ public class menumgr
                 Level2();
                 break;
             default:
-                System.out.println("Returning to main org.rit.swen440.presentation.menu");
+                System.out.println("Returning to main org.rit.swen440.presentation.Menu");
                 currentLevel = 0;
                 Level0();
                 break;
@@ -50,29 +42,22 @@ public class menumgr
         return false;
     }
 
-    public void Level0()
-    {
-        menu m = new menu();
+    public void Level0() {
+        Menu m = new Menu();
         List<String> categories = controller.getCategories();
         m.loadMenu(categories);
-        m.addMenuItem("'q' to Quit"); 
-        System.out.println("The following org.rit.swen440.presentation.categories are available");
+        m.addMenuItem("'q' to Quit");
+        System.out.println("The following org.rit.swen440.presentation.Categories are available");
         m.printMenu();
         String result = "0";
-        try
-        {
+        try {
             result = m.getSelection();
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             result = "q";
         }
-        if (Objects.equals(result,"q"))
-        {
+        if (Objects.equals(result, "q")) {
             currentLevel--;
-        }
-        else
-        {
+        } else {
             currentLevel++;
             int iSel = Integer.parseInt(result);
 
@@ -81,59 +66,51 @@ public class menumgr
         }
     }
 
-    public void Level1()
-    {
-        menu m = new menu();
+    public void Level1() {
+        Menu m = new Menu();
 
-        //items it = new items("orderSys/" + currentCategory.getName());
+        //Items it = new Items("orderSys/" + currentCategory.getName());
 
-        // List<item> itemList = controller.getProducts(currentCategoryName);
+        // List<Item> itemList = controller.getProducts(currentCategoryName);
         List<String> itemList = controller.getProducts(currentCategoryName);
         List<String> l = new ArrayList<>();
         System.out.println("");
-        for (String itm: itemList)
+        for (String itm : itemList)
             l.add(controller.getProductInformation(currentCategoryName, itm, Controller.PRODUCT_FIELD.NAME)
-             + "($" + controller.getProductInformation(currentCategoryName, itm, Controller.PRODUCT_FIELD.COST) + ")");
-        
+                          + "($" + controller.getProductInformation(currentCategoryName, itm, Controller.PRODUCT_FIELD.COST) + ")");
+
         m.loadMenu(l);
         m.addMenuItem("'q' to quit");
-        System.out.println("The following items are available");
+        System.out.println("The following Items are available");
         m.printMenu();
         String result = m.getSelection();
-        try
-        {
+        try {
             int iSel = Integer.parseInt(result);//Item  selected
             currentItemName = itemList.get(iSel);
             //currentItem = itemList.get(iSel);
-            //Now read the file and print the org.rit.swen440.presentation.items in the catalog
-            System.out.println("You want item from the catalog: " + currentItemName);
-        }
-        catch (Exception e)
-        {
+            //Now read the file and print the org.rit.swen440.presentation.Items in the catalog
+            System.out.println("You want Item from the catalog: " + currentItemName);
+        } catch (Exception e) {
             result = "q";
         }
         if (result == "q")
             currentLevel--;
-        else
-        {
+        else {
             //currentLevel++;//Or keep at same level?
             OrderQty(currentCategoryName, currentItemName);
         }
     }
 
-
-    public void Level2()
-    {
+    public void Level2() {
 
     }
 
-    public void OrderQty(String category, String item)
-    {
+    public void OrderQty(String category, String item) {
         System.out.println("Please select a quantity");
         System.out.println(controller.getProductInformation(category, item, Controller.PRODUCT_FIELD.NAME) +
-                " availability:" + controller.getProductInformation(category, item, Controller.PRODUCT_FIELD.INVENTORY));
+                                   " availability:" + controller.getProductInformation(category, item, Controller.PRODUCT_FIELD.INVENTORY));
         System.out.print(":");
-        menu m = new menu();
+        Menu m = new Menu();
         String result = m.getSelection();
         System.out.println("You ordered:" + result);
     }
