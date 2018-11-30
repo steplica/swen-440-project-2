@@ -75,9 +75,10 @@ public class MenuManager {
         List<String> itemList = controller.getProducts(currentCategoryName);
         List<String> l = new ArrayList<>();
         System.out.println("");
-        for (String itm : itemList)
-            l.add(controller.getProductInformation(currentCategoryName, itm, Controller.PRODUCT_FIELD.NAME)
-                          + "($" + controller.getProductInformation(currentCategoryName, itm, Controller.PRODUCT_FIELD.COST) + ")");
+        itemList.forEach(item -> {
+            l.add(controller.getProductInformation(currentCategoryName, item, Controller.PRODUCT_FIELD.NAME)
+                          + "($" + controller.getProductInformation(currentCategoryName, item, Controller.PRODUCT_FIELD.COST) + ")");
+        });
 
         m.loadMenu(l);
         m.addMenuItem("'q' to quit");

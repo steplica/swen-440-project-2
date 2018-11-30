@@ -6,9 +6,11 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 public class Application {
+
     public static void main(String[] args) {
         try {
-            System.getProperties().load(new FileInputStream("orderSys.properties"));
+            System.getProperties()
+                    .load(new FileInputStream("orderSys.properties"));
             System.out.println("Hello");
             MenuManager mgr = new MenuManager();
             int currentLevel = 0;

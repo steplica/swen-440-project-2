@@ -1,0 +1,44 @@
+{
+  "categories": [
+    {
+      "name": "Toys4Boyz",
+      "description": "The hottest toys for the coolest boiz",
+      "products": [
+        {
+          "skuCode": 1,
+          "itemCount": 15,
+          "threshold": 5,
+          "reorderAmount": 25,
+          "title": "yo-yo",
+          "description": "It goes up and down.",
+          "cost": 5
+        },
+        {
+          "skuCode": 2,
+          "itemCount": 5,
+          "threshold": 2,
+          "reorderAmount": 10,
+          "title": "umbrella",
+          "description": "For those rainy days.",
+          "cost": 15
+        },
+        {
+          "skuCode": 2,
+          "itemCount": 300,
+          "threshold": 150,
+          "reorderAmount": 450,
+          "title": "garlic bread",
+          "description": "Food, for the mood.",
+          "cost": 3
+        }
+      ]
+    }
+  ],
+  "transactions": [
+    {
+      "itemSkuCode": 1,
+      "quantity": 2,
+      "cost": 10
+    }
+  ]
+}

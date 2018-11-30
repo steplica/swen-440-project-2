@@ -4,14 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Transaction {
+public class Database {
 
-    private int itemSkuCode;
-    private int quantity;
-    private BigDecimal cost;
+    List<Category> categories;
+    List<Transaction> transactions; // TODO: change Object to Transaction
 }

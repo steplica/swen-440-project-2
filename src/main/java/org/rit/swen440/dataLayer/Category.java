@@ -2,7 +2,9 @@ package org.rit.swen440.dataLayer;
 
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -14,7 +16,7 @@ public class Category {
     private String name;
     private String description;
 
-    private Set<Product> products = new HashSet<>();
+    private List<Product> products = new ArrayList<>();
 
     public Optional<Product> findProduct(String name) {
         return products.stream()
