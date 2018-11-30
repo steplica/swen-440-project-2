@@ -96,13 +96,15 @@ public class MenuManager {
         if (result == "q")
             currentLevel--;
         else {
-            //currentLevel++;//Or keep at same level?
+            currentLevel++;//Or keep at same level?
             OrderQty(currentCategoryName, currentItemName);
         }
     }
 
     public void Level2() {
-
+        System.out.println("\n Thank you for your purchase!");
+        System.out.println("This transaction was automatically added to the database \n");
+        currentLevel = 0;
     }
 
     public void OrderQty(String category, String item) {
