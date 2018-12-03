@@ -1,5 +1,5 @@
 {
-  "databaseFilepath" : "/Users/steplica/projects/rit/swen-440-project-2/orderSys/database.json",
+  "databaseFilepath" : "/Users/btarr/Documents/intellij_projects/swen-440-project-2/orderSys/database.json",
   "categories" : [ {
     "name" : "Toys4Boyz",
     "description" : "The hottest toys for the coolest boiz",
@@ -21,7 +21,7 @@
       "cost" : 15
     }, {
       "skuCode" : 3,
-      "itemCount" : 595,
+      "itemCount" : 300,
       "threshold" : 150,
       "reorderAmount" : 450,
       "title" : "garlic bread",
@@ -29,20 +29,5 @@
       "cost" : 3
     } ]
   } ],
-  "transactions" : [ {
-    "itemSkuCode" : 1,
-    "itemTitle" : "yo-yo",
-    "quantity" : 2,
-    "cost" : 10
-  }, {
-    "itemSkuCode" : 3,
-    "itemTitle" : "garlic bread",
-    "quantity" : 130,
-    "cost" : 390
-  }, {
-    "itemSkuCode" : 3,
-    "itemTitle" : "garlic bread",
-    "quantity" : 25,
-    "cost" : 75
-  } ]
+  "transactions" : []
 }
