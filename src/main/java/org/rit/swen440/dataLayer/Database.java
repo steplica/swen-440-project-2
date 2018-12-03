@@ -1,5 +1,6 @@
 package org.rit.swen440.dataLayer;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,7 +14,9 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class Database {
 
+    @JsonIgnore
     private String databaseFilepath;
+
     private List<Category> categories;
     private List<Transaction> transactions;
 

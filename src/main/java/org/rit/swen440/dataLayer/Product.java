@@ -13,18 +13,11 @@ import java.nio.file.Path;
  */
 @Data
 public class Product {
-    @Getter
     private int skuCode;
-    @Getter
     private int itemCount;
-    @Getter
     private int threshold;
-    @Getter
     private int reorderAmount;
-    @Getter
     private String title;
-    @Getter
     private String description;
-    @Getter
     private BigDecimal cost;
 }
