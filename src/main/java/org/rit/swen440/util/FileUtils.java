@@ -33,7 +33,7 @@ public class FileUtils {
 
     public static <T> void writeObjectToJsonFile(String path, T object) {
         try {
-            OBJECT_MAPPER.writeValue(new File(path), object);
+            OBJECT_MAPPER.writerWithDefaultPrettyPrinter().writeValue(new File(path), object);
         } catch (IOException e) {
             e.printStackTrace();
         }

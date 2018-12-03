@@ -13,11 +13,6 @@ import java.nio.file.Path;
  */
 @Data
 public class Product {
-    @Setter(AccessLevel.PRIVATE)
-    private boolean updated = false;
-
-    private Path path;
-
     @Getter
     private int skuCode;
     @Getter
@@ -32,30 +27,4 @@ public class Product {
     private String description;
     @Getter
     private BigDecimal cost;
-
-    /**
-     * Check to see if we have enough of this Item for an order
-     *
-     * @param amount Number of Items being ordered
-     * @return true if enough stock
-     */
-    public boolean canOrder(int amount) {
-        return (itemCount - amount >= 0);
-    }
-
-    /**
-     * Place an order, decrement the available itemCount
-     *
-     * @param amount being ordered
-     * @return if order was successfully processed
-     */
-    public boolean order(int amount) {
-        if (canOrder(amount)) {
-            itemCount = itemCount - amount;
-            setUpdated(true);  // Need to store the updated product information
-            return true;
-        }
-
-        return false;
-    }
 }
