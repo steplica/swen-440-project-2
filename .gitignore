@@ -69,8 +69,3 @@ nb-configuration.xml
 ## Program Properties
 ##########################
 orderSys.properties
-
-##########################
-## Database
-##########################
-orderSys/database.json
