@@ -23,7 +23,23 @@ public class MenuManager {
         controller = new Controller(System.getProperty("fileSystemRoot"));
     }
 
-    public boolean loadLevel(int level) {
+    public boolean runCommandLineInterface() {
+        boolean done;
+        do {
+            done = orderProductFlow();
+        } while (!done);
+        return true;
+    }
+
+    public void viewTransactionsFlow() {
+        List<Transaction> transactions = controller.getTransactions();
+        System.out.println("Your transactions:");
+        for(Transaction transaction: transactions) {
+            System.out.println(transaction);
+        }
+    }
+
+    public boolean orderProductFlow() {
 //        System.out.println("Loading level:" + currentLevel);
         switch (currentLevel) {
             case -1:
@@ -52,7 +68,7 @@ public class MenuManager {
         List<String> categories = controller.getCategories();
         m.loadMenu(categories);
         m.addMenuItem("'q' to Quit");
-        System.out.println("The following org.rit.swen440.presentation.Categories are available");
+        System.out.println("The following categories are available");
         m.printMenu();
         String result = "0";
         try {
@@ -87,7 +103,7 @@ public class MenuManager {
 
         m.loadMenu(l);
         m.addMenuItem("'q' to quit");
-        System.out.println("The following Items are available");
+        System.out.println("The following items are available");
         m.printMenu();
         String result = m.getSelection();
         try {
@@ -132,6 +148,7 @@ public class MenuManager {
             Transaction resultingTransaction = new Transaction(product.getSkuCode(), product.getTitle(), orderCount, totalCost);
             System.out.println("\nThank you for your purchase!");
             System.out.println("You ordered: " + resultingTransaction);
+            controller.addTransaction(resultingTransaction);
         } catch(NumberFormatException e) {
             System.out.println("System error: invalid number, please try again");
             return false;

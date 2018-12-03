@@ -12,10 +12,9 @@ public class Application {
             System.getProperties()
                     .load(new FileInputStream("orderSys.properties"));
             MenuManager mgr = new MenuManager();
-            int currentLevel = 0;
-            boolean done = false;
+            boolean done;
             do {
-                done = mgr.loadLevel(currentLevel);
+                done = mgr.runCommandLineInterface();
             } while (!done);
 
             System.out.println("Thank you for shopping at Hippolyta.com!");
