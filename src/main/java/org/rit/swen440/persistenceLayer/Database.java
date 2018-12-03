@@ -1,9 +1,13 @@
-package org.rit.swen440.dataLayer;
+package org.rit.swen440.persistenceLayer;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.rit.swen440.dataLayer.Category;
+import org.rit.swen440.dataLayer.InsufficientQuantityException;
+import org.rit.swen440.dataLayer.Product;
+import org.rit.swen440.dataLayer.Transaction;
 import org.rit.swen440.util.FileUtils;
 
 import java.util.List;

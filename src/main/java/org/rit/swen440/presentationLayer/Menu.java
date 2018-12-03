@@ -1,4 +1,4 @@
-package org.rit.swen440.presentation;
+package org.rit.swen440.presentationLayer;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,6 +1,6 @@
 package org.rit.swen440;
 
-import org.rit.swen440.presentation.MenuManager;
+import org.rit.swen440.presentationLayer.MenuManager;
 
 import java.io.FileInputStream;
 import java.io.IOException;

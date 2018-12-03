@@ -1,11 +1,10 @@
-package org.rit.swen440.presentation;
+package org.rit.swen440.presentationLayer;
 
-import org.rit.swen440.control.Controller;
+import org.rit.swen440.controlLayer.Controller;
 import org.rit.swen440.dataLayer.InsufficientQuantityException;
 import org.rit.swen440.dataLayer.Product;
 import org.rit.swen440.dataLayer.Transaction;
 
-import javax.swing.text.html.Option;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -129,7 +128,7 @@ public class MenuManager {
             int iSel = Integer.parseInt(result);//Item  selected
             currentItemName = itemList.get(iSel);
             //currentItem = itemList.get(iSel);
-            //Now read the file and print the org.rit.swen440.presentation.Items in the catalog
+            //Now read the file and print the org.rit.swen440.presentationLayer.Items in the catalog
             System.out.println("You want Item from the catalog: " + currentItemName);
         } catch (Exception e) {
             result = "q";

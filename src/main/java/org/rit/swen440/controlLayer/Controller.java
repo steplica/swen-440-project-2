@@ -1,24 +1,13 @@
-package org.rit.swen440.control;
+package org.rit.swen440.controlLayer;
 
 import org.rit.swen440.dataLayer.Category;
-import org.rit.swen440.dataLayer.Database;
+import org.rit.swen440.persistenceLayer.Database;
 import org.rit.swen440.dataLayer.Product;
 import org.rit.swen440.dataLayer.Transaction;
 import org.rit.swen440.util.FileUtils;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.math.BigDecimal;
-import java.nio.charset.Charset;
-import java.nio.file.DirectoryIteratorException;
-import java.nio.file.DirectoryStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
