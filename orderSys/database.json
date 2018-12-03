@@ -37,6 +37,7 @@
   "transactions": [
     {
       "itemSkuCode": 1,
+      "itemTitle": "yo-yo",
       "quantity": 2,
       "cost": 10
     }

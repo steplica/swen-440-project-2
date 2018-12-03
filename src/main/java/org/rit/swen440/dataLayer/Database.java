@@ -12,5 +12,5 @@ import java.util.List;
 public class Database {
 
     List<Category> categories;
-    List<Transaction> transactions; // TODO: change Object to Transaction
+    List<Transaction> transactions;
 }

@@ -3,6 +3,7 @@ package org.rit.swen440.control;
 import org.rit.swen440.dataLayer.Category;
 import org.rit.swen440.dataLayer.Database;
 import org.rit.swen440.dataLayer.Product;
+import org.rit.swen440.dataLayer.Transaction;
 import org.rit.swen440.util.FileUtils;
 
 import java.io.BufferedReader;
@@ -14,7 +15,6 @@ import java.nio.file.DirectoryIteratorException;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -29,8 +29,10 @@ import java.util.stream.Collectors;
  */
 public class Controller {
     private static final String DATABASE_FILENAME = "database.json";
+    private static Database database;
 
     private List<Category> categories = new ArrayList<>();
+    private List<Transaction> transactions = new ArrayList<>();
 
     public enum PRODUCT_FIELD {
         NAME,
@@ -40,18 +42,29 @@ public class Controller {
     }
 
     public Controller(String directory) {
-        loadCategories(directory);
+        initializeDatabase(directory);
+        loadCategories();
+        loadTransactions();
+    }
+
+    private static void initializeDatabase(String directory) {
+        if (database == null) {
+            database = FileUtils.readJsonAsObject(directory + '/' + DATABASE_FILENAME, Database.class);
+        }
     }
 
     /**
      * Load the Category information
-     *
-     * @param directory root directory
      */
-    private void loadCategories(String directory) {
-        final String databaseFilepath = directory + "/" + DATABASE_FILENAME;
-        Database database = FileUtils.readJsonAsObject(databaseFilepath, Database.class);
+    private void loadCategories() {
         categories = database.getCategories();
+    }
+
+    /**
+     * Load the Transaction information
+     */
+    private void loadTransactions() {
+        transactions = database.getTransactions();
     }
 
     /**
@@ -63,6 +76,14 @@ public class Controller {
         return categories.stream()
                 .map(Category::getName)
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * get a list of transactions in the system
+     * @return a list of transactions
+     */
+    public List<Transaction> getTransactions() {
+        return transactions;
     }
 
     /**
@@ -213,5 +234,9 @@ public class Controller {
         } catch (IOException e) {
             System.err.println("Failed to write product file for:" + product.getTitle());
         }
+    }
+
+    private void writeTransaction(String directory, Transaction transaction) {
+        final String databaseFilepath = directory + "/" + DATABASE_FILENAME;
     }
 }
