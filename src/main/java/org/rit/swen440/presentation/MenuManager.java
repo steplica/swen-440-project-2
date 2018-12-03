@@ -24,19 +24,39 @@ public class MenuManager {
     }
 
     public boolean runCommandLineInterface() {
-        boolean done;
-        do {
-            done = orderProductFlow();
-        } while (!done);
-        return true;
+        Menu m = new Menu();
+        m.addMenuItem("Make order");
+        m.addMenuItem("View transactions");
+        m.addMenuItem("'q' to Quit");
+        System.out.println("What would you like to do?");
+        m.printMenu();
+
+        String result;
+        try {
+            result = m.getSelection();
+        } catch (Exception e) {
+            result = "q";
+        }
+        if (result.equals("q")) {
+            return true;
+        } else if (result.equals("0")) {
+            boolean done;
+            do {
+                done = orderProductFlow();
+            } while (!done);
+        } else if (result.equals("1")) {
+            viewTransactions();
+        }
+        return false;
     }
 
-    public void viewTransactionsFlow() {
+    public void viewTransactions() {
         List<Transaction> transactions = controller.getTransactions();
         System.out.println("Your transactions:");
         for(Transaction transaction: transactions) {
             System.out.println(transaction);
         }
+        System.out.println();
     }
 
     public boolean orderProductFlow() {
@@ -54,10 +74,9 @@ public class MenuManager {
                 Level2();
                 break;
             default:
-                System.out.println("Returning to main org.rit.swen440.presentation.Menu");
+                System.out.println("Returning to Menu");
                 currentLevel = 0;
-                Level0();
-                break;
+                return true;
         }
 
         return false;

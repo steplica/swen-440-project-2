@@ -1,5 +1,6 @@
 package org.rit.swen440.presentation;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -16,6 +17,9 @@ public class Menu {
     }
 
     public void addMenuItem(String item) {
+        if (menuList == null) {
+            menuList = new ArrayList<>();
+        }
         menuList.add(item);
     }
 
