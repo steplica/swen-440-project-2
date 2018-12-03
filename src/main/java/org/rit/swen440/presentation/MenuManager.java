@@ -5,6 +5,7 @@ import org.rit.swen440.dataLayer.Product;
 import org.rit.swen440.dataLayer.Transaction;
 
 import javax.swing.text.html.Option;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -128,7 +129,8 @@ public class MenuManager {
         String result = m.getSelection();
         try {
             Integer orderCount = Integer.parseInt(result);
-            Transaction resultingTransaction = new Transaction(product.getSkuCode(), product.getTitle(), orderCount, product.getCost());
+            BigDecimal totalCost = product.getCost().multiply(new BigDecimal(orderCount));
+            Transaction resultingTransaction = new Transaction(product.getSkuCode(), product.getTitle(), orderCount, totalCost);
             System.out.println("You ordered:" + resultingTransaction);
         } catch(NumberFormatException e) {
             System.out.println("System error: invalid number, please try again");
