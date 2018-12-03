@@ -15,7 +15,6 @@ import java.nio.file.DirectoryIteratorException;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -28,11 +27,7 @@ import java.util.stream.Collectors;
  * Categories and products from information on the underlying file system.
  */
 public class Controller {
-    private static final String DATABASE_FILENAME = "database.json";
-    private static Database database;
-
-    private List<Category> categories = new ArrayList<>();
-    private List<Transaction> transactions = new ArrayList<>();
+    private static Database DATABASE;
 
     public enum PRODUCT_FIELD {
         NAME,
@@ -43,28 +38,14 @@ public class Controller {
 
     public Controller(String directory) {
         initializeDatabase(directory);
-        loadCategories();
-        loadTransactions();
     }
 
     private static void initializeDatabase(String directory) {
-        if (database == null) {
-            database = FileUtils.readJsonAsObject(directory + '/' + DATABASE_FILENAME, Database.class);
+        if (DATABASE == null) {
+            String databaseFilepath = directory + "/database.json";
+            DATABASE = FileUtils.readJsonAsObject(databaseFilepath, Database.class);
+            DATABASE.setDatabaseFilepath(databaseFilepath);
         }
-    }
-
-    /**
-     * Load the Category information
-     */
-    private void loadCategories() {
-        categories = database.getCategories();
-    }
-
-    /**
-     * Load the Transaction information
-     */
-    private void loadTransactions() {
-        transactions = database.getTransactions();
     }
 
     /**
@@ -73,17 +54,19 @@ public class Controller {
      * @return list of Categories
      */
     public List<String> getCategories() {
-        return categories.stream()
+        return DATABASE.getCategories()
+                .stream()
                 .map(Category::getName)
                 .collect(Collectors.toList());
     }
 
     /**
      * get a list of transactions in the system
+     *
      * @return a list of transactions
      */
     public List<Transaction> getTransactions() {
-        return transactions;
+        return DATABASE.getTransactions();
     }
 
     /**
@@ -93,7 +76,8 @@ public class Controller {
      * @return description
      */
     public String getCategoryDescription(String category) {
-        Optional<Category> match = categories.stream()
+        Optional<Category> match = DATABASE.getCategories()
+                .stream()
                 .filter(c -> c.getName()
                         .equalsIgnoreCase(category))
                 .findFirst();
@@ -137,6 +121,10 @@ public class Controller {
         return null;
     }
 
+    public void addTransaction(Transaction transaction) {
+        DATABASE.addTransaction(transaction);
+    }
+
     /**
      * Get the Category that matches the provided Category name
      *
@@ -144,14 +132,16 @@ public class Controller {
      * @return Category, if present
      */
     private Optional<Category> findCategory(String name) {
-        return categories.stream()
+        return DATABASE.getCategories()
+                .stream()
                 .filter(c -> c.getName()
                         .equalsIgnoreCase(name))
                 .findFirst();
     }
 
     public Optional<Product> getProduct(String category, String product) {
-        return findCategory(category).map(c -> c.findProduct(product)).orElse(null);
+        return findCategory(category).map(c -> c.findProduct(product))
+                .orElse(null);
     }
 
     /**
@@ -164,7 +154,9 @@ public class Controller {
         DirectoryStream.Filter<Path> productFilter = new DirectoryStream.Filter<Path>() {
             @Override
             public boolean accept(Path path) throws IOException {
-                return !Files.isDirectory(path) && !path.toString().toLowerCase().endsWith("cat");
+                return !Files.isDirectory(path) && !path.toString()
+                        .toLowerCase()
+                        .endsWith("cat");
             }
         };
 
@@ -230,13 +222,10 @@ public class Controller {
             writer.newLine();
             writer.write(product.getDescription());
             writer.newLine();
-            writer.write(product.getCost().toString());
+            writer.write(product.getCost()
+                                 .toString());
         } catch (IOException e) {
             System.err.println("Failed to write product file for:" + product.getTitle());
         }
-    }
-
-    private void writeTransaction(String directory, Transaction transaction) {
-        final String databaseFilepath = directory + "/" + DATABASE_FILENAME;
     }
 }

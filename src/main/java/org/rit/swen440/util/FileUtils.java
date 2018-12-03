@@ -2,6 +2,7 @@ package org.rit.swen440.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
@@ -9,7 +10,7 @@ import java.nio.file.Paths;
 
 public class FileUtils {
 
-    public static final ObjectMapper objectMapper = new ObjectMapper();
+    public static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
     public static String readFileToString(String path) {
         try {
@@ -23,10 +24,18 @@ public class FileUtils {
     public static <T> T readJsonAsObject(String path, Class<T> type) {
         try {
             String jsonString = FileUtils.readFileToString(path);
-            return objectMapper.readValue(jsonString, type);
+            return OBJECT_MAPPER.readValue(jsonString, type);
         } catch (IOException e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    public static <T> void writeObjectToJsonFile(String path, T object) {
+        try {
+            OBJECT_MAPPER.writeValue(new File(path), object);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
