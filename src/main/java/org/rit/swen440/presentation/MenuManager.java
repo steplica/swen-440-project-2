@@ -1,6 +1,7 @@
 package org.rit.swen440.presentation;
 
 import org.rit.swen440.control.Controller;
+import org.rit.swen440.dataLayer.InsufficientQuantityException;
 import org.rit.swen440.dataLayer.Product;
 import org.rit.swen440.dataLayer.Transaction;
 
@@ -72,9 +73,8 @@ public class MenuManager {
                 break;
             case 2:
                 Level2();
-                break;
             default:
-                System.out.println("Returning to Menu");
+                System.out.println("\nReturning to Menu");
                 currentLevel = 0;
                 return true;
         }
@@ -86,7 +86,7 @@ public class MenuManager {
         Menu m = new Menu();
         List<String> categories = controller.getCategories();
         m.loadMenu(categories);
-        m.addMenuItem("'q' to Quit");
+        m.addMenuItem("'q' to return to Menu");
         System.out.println("The following categories are available");
         m.printMenu();
         String result = "0";
@@ -146,7 +146,6 @@ public class MenuManager {
 
     public void Level2() {
         System.out.println("This transaction was added to the database \n");
-        currentLevel = 0;
     }
 
     public boolean OrderQty(String category, String item) {
@@ -165,11 +164,14 @@ public class MenuManager {
             Integer orderCount = Integer.parseInt(result);
             BigDecimal totalCost = product.getCost().multiply(new BigDecimal(orderCount));
             Transaction resultingTransaction = new Transaction(product.getSkuCode(), product.getTitle(), orderCount, totalCost);
+            controller.addTransaction(resultingTransaction);
             System.out.println("\nThank you for your purchase!");
             System.out.println("You ordered: " + resultingTransaction);
-            controller.addTransaction(resultingTransaction);
         } catch(NumberFormatException e) {
             System.out.println("System error: invalid number, please try again");
+            return false;
+        } catch (InsufficientQuantityException e) {
+            System.out.println("Quantity not available, please chose a different quantity and try again");
             return false;
         }
         return true;
