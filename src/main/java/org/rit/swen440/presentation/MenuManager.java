@@ -110,8 +110,7 @@ public class MenuManager {
     }
 
     public void Level2() {
-        System.out.println("\n Thank you for your purchase!");
-        System.out.println("This transaction was automatically added to the database \n");
+        System.out.println("This transaction was added to the database \n");
         currentLevel = 0;
     }
 
@@ -131,7 +130,8 @@ public class MenuManager {
             Integer orderCount = Integer.parseInt(result);
             BigDecimal totalCost = product.getCost().multiply(new BigDecimal(orderCount));
             Transaction resultingTransaction = new Transaction(product.getSkuCode(), product.getTitle(), orderCount, totalCost);
-            System.out.println("You ordered:" + resultingTransaction);
+            System.out.println("\nThank you for your purchase!");
+            System.out.println("You ordered: " + resultingTransaction);
         } catch(NumberFormatException e) {
             System.out.println("System error: invalid number, please try again");
             return false;
