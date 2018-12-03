@@ -12,6 +12,7 @@ import java.math.BigDecimal;
 public class Transaction {
 
     private int itemSkuCode;
+    private String itemTitle;
     private int quantity;
     private BigDecimal cost;
 }

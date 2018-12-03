@@ -1,10 +1,14 @@
 package org.rit.swen440.presentation;
 
 import org.rit.swen440.control.Controller;
+import org.rit.swen440.dataLayer.Product;
+import org.rit.swen440.dataLayer.Transaction;
 
+import javax.swing.text.html.Option;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 public class MenuManager {
     int currentLevel = 0;
@@ -97,8 +101,10 @@ public class MenuManager {
         if (result == "q")
             currentLevel--;
         else {
-            currentLevel++;//Or keep at same level?
-            OrderQty(currentCategoryName, currentItemName);
+            boolean orderSuccessful = OrderQty(currentCategoryName, currentItemName);
+            if (orderSuccessful) {
+                currentLevel++;
+            }
         }
     }
 
@@ -108,13 +114,26 @@ public class MenuManager {
         currentLevel = 0;
     }
 
-    public void OrderQty(String category, String item) {
+    public boolean OrderQty(String category, String item) {
         System.out.println("Please select a quantity");
-        System.out.println(controller.getProductInformation(category, item, Controller.PRODUCT_FIELD.NAME) +
-                                   " availability:" + controller.getProductInformation(category, item, Controller.PRODUCT_FIELD.INVENTORY));
+        Optional<Product> maybeProduct = controller.getProduct(category, item);
+        if (!maybeProduct.isPresent()) {
+            System.out.println("System error: order failed, please try again");
+            return false;
+        }
+        Product product = maybeProduct.get();
+        System.out.println(product.getTitle() + " availability:" + product.getItemCount());
         System.out.print(":");
         Menu m = new Menu();
         String result = m.getSelection();
-        System.out.println("You ordered:" + result);
+        try {
+            Integer orderCount = Integer.parseInt(result);
+            Transaction resultingTransaction = new Transaction(product.getSkuCode(), product.getTitle(), orderCount, product.getCost());
+            System.out.println("You ordered:" + resultingTransaction);
+        } catch(NumberFormatException e) {
+            System.out.println("System error: invalid number, please try again");
+            return false;
+        }
+        return true;
     }
 }

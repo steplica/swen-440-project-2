@@ -129,8 +129,89 @@ public class Controller {
                 .findFirst();
     }
 
-    private Optional<Product> getProduct(String category, String product) {
-        return findCategory(category).map(c -> c.findProduct(product))
-                .orElse(null);
+    public Optional<Product> getProduct(String category, String product) {
+        return findCategory(category).map(c -> c.findProduct(product)).orElse(null);
+    }
+
+    /**
+     * Parse a subdirectory and create a product object for each product within it
+     *
+     * @param path the subdirectory we're working in
+     * @return a set of products
+     */
+    private Set<Product> loadProducts(Path path) {
+        DirectoryStream.Filter<Path> productFilter = new DirectoryStream.Filter<Path>() {
+            @Override
+            public boolean accept(Path path) throws IOException {
+                return !Files.isDirectory(path) && !path.toString().toLowerCase().endsWith("cat");
+            }
+        };
+
+        Set<Product> products = new HashSet<>();
+
+        try (DirectoryStream<Path> stream = Files.newDirectoryStream(path, productFilter)) {
+            for (Path productFile : stream) {
+                // Read the product file
+                try (BufferedReader reader = Files.newBufferedReader(productFile, Charset.forName("US-ASCII"))) {
+                    Product product = new Product();
+                    product.setSkuCode(Integer.valueOf(reader.readLine()));
+                    product.setItemCount(Integer.valueOf(reader.readLine()));
+                    product.setThreshold(Integer.valueOf(reader.readLine()));
+                    product.setReorderAmount(Integer.valueOf(reader.readLine()));
+                    product.setTitle(reader.readLine());
+                    product.setDescription(reader.readLine());
+                    product.setCost(new BigDecimal(reader.readLine()));
+
+                    product.setPath(productFile);
+
+                    products.add(product);
+                } catch (Exception e) {
+                    // Failed to read a product.  Log the error and continue
+                    System.err.println("Failed to read file: " + path.toString());
+                }
+            }
+        } catch (IOException | DirectoryIteratorException e) {
+            System.err.println(e);
+        }
+
+        return products;
+    }
+
+    /**
+     * Loop through the set of products and write out any updated products
+     *
+     * @param products set of products
+     */
+    private void writeProducts(List<Product> products) {
+        for (Product product : products) {
+            if (product.isUpdated()) {
+                updateProduct(product);
+            }
+        }
+    }
+
+    /**
+     * Write an updated product
+     *
+     * @param product the product
+     */
+    private void updateProduct(Product product) {
+        try (BufferedWriter writer = Files.newBufferedWriter(product.getPath(), Charset.forName("US-ASCII"))) {
+            writer.write(String.valueOf(product.getSkuCode()));
+            writer.newLine();
+            writer.write(String.valueOf(product.getItemCount()));
+            writer.newLine();
+            writer.write(String.valueOf(product.getThreshold()));
+            writer.newLine();
+            writer.write(String.valueOf(product.getReorderAmount()));
+            writer.newLine();
+            writer.write(product.getTitle());
+            writer.newLine();
+            writer.write(product.getDescription());
+            writer.newLine();
+            writer.write(product.getCost().toString());
+        } catch (IOException e) {
+            System.err.println("Failed to write product file for:" + product.getTitle());
+        }
     }
 }

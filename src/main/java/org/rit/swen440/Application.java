@@ -11,7 +11,6 @@ public class Application {
         try {
             System.getProperties()
                     .load(new FileInputStream("orderSys.properties"));
-            System.out.println("Hello");
             MenuManager mgr = new MenuManager();
             int currentLevel = 0;
             boolean done = false;

@@ -2,6 +2,7 @@ package org.rit.swen440.dataLayer;
 
 import lombok.AccessLevel;
 import lombok.Data;
+import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
@@ -17,12 +18,19 @@ public class Product {
 
     private Path path;
 
+    @Getter
     private int skuCode;
+    @Getter
     private int itemCount;
+    @Getter
     private int threshold;
+    @Getter
     private int reorderAmount;
+    @Getter
     private String title;
+    @Getter
     private String description;
+    @Getter
     private BigDecimal cost;
 
     /**
@@ -45,8 +53,6 @@ public class Product {
         if (canOrder(amount)) {
             itemCount = itemCount - amount;
             setUpdated(true);  // Need to store the updated product information
-
-            // TODO:  add stock management functionality
             return true;
         }
 
