@@ -170,7 +170,7 @@ public class MenuManager {
             System.out.println("System error: invalid number, please try again");
             return false;
         } catch (InsufficientQuantityException e) {
-            System.out.println("Quantity not available, please chose a different quantity and try again");
+            System.out.println("Quantity not available, please choose a different quantity and try again");
             return false;
         }
         return true;
