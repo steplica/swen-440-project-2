@@ -1,9 +1,11 @@
-package org.rit.swen440.dataLayer;
+package org.rit.swen440.model;
 
 import lombok.Data;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -14,11 +16,13 @@ public class Category {
     private String name;
     private String description;
 
-    private List<Product> products = new ArrayList<>();
+    private Map<String, Product> products;
 
     public Optional<Product> findProduct(String name) {
-        return products.stream()
-                .filter(p -> p.getTitle().equalsIgnoreCase(name))
+        return products.entrySet()
+                .stream()
+                .filter(entry -> entry.getValue().getTitle().equalsIgnoreCase(name))
+                .map(Map.Entry::getValue)
                 .findFirst();
     }
 }

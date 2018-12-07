@@ -1,9 +1,9 @@
-package org.rit.swen440.presentationLayer;
+package org.rit.swen440.view;
 
-import org.rit.swen440.controlLayer.Controller;
-import org.rit.swen440.dataLayer.InsufficientQuantityException;
-import org.rit.swen440.dataLayer.Product;
-import org.rit.swen440.dataLayer.Transaction;
+import org.rit.swen440.controller.Controller;
+import org.rit.swen440.model.InsufficientQuantityException;
+import org.rit.swen440.model.Product;
+import org.rit.swen440.model.Transaction;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -12,11 +12,9 @@ import java.util.Objects;
 import java.util.Optional;
 
 public class MenuManager {
-    int currentLevel = 0;
-    String currentCategoryName;
-    String currentItemName;
-    Category currentCategory;
-    Item currentItem;
+    private int currentLevel = 0;
+    private String currentCategoryName;
+    private String currentItemName;
     private Controller controller;
 
     public MenuManager() {
@@ -60,7 +58,6 @@ public class MenuManager {
     }
 
     public boolean orderProductFlow() {
-//        System.out.println("Loading level:" + currentLevel);
         switch (currentLevel) {
             case -1:
                 return true;
@@ -72,6 +69,7 @@ public class MenuManager {
                 break;
             case 2:
                 Level2();
+                break;
             default:
                 System.out.println("\nReturning to Menu");
                 currentLevel = 0;
@@ -107,10 +105,6 @@ public class MenuManager {
 
     public void Level1() {
         Menu m = new Menu();
-
-        //Items it = new Items("orderSys/" + currentCategory.getName());
-
-        // List<Item> itemList = controller.getProducts(currentCategoryName);
         List<String> itemList = controller.getProducts(currentCategoryName);
         List<String> l = new ArrayList<>();
         System.out.println("");
@@ -127,8 +121,6 @@ public class MenuManager {
         try {
             int iSel = Integer.parseInt(result);//Item  selected
             currentItemName = itemList.get(iSel);
-            //currentItem = itemList.get(iSel);
-            //Now read the file and print the org.rit.swen440.presentationLayer.Items in the catalog
             System.out.println("You want Item from the catalog: " + currentItemName);
         } catch (Exception e) {
             result = "q";
@@ -145,6 +137,7 @@ public class MenuManager {
 
     public void Level2() {
         System.out.println("This transaction was added to the database \n");
+        currentLevel--;
     }
 
     public boolean OrderQty(String category, String item) {
@@ -162,7 +155,7 @@ public class MenuManager {
         try {
             Integer orderCount = Integer.parseInt(result);
             BigDecimal totalCost = product.getCost().multiply(new BigDecimal(orderCount));
-            Transaction resultingTransaction = new Transaction(product.getSkuCode(), product.getTitle(), orderCount, totalCost);
+            Transaction resultingTransaction = new Transaction(category, product.getSkuCode(), product.getTitle(), orderCount, totalCost);
             controller.addTransaction(resultingTransaction);
             System.out.println("\nThank you for your purchase!");
             System.out.println("You ordered: " + resultingTransaction);

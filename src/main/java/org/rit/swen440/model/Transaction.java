@@ -1,4 +1,4 @@
-package org.rit.swen440.dataLayer;
+package org.rit.swen440.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,6 +14,7 @@ public class Transaction {
 
     private static DecimalFormat costFormat = new DecimalFormat("#,###.00");
 
+    private String itemCategory;
     private int itemSkuCode;
     private String itemTitle;
     private int quantity;
@@ -21,6 +22,6 @@ public class Transaction {
 
     @Override
     public String toString() {
-        return String.format("%d %s (sku %d) for a total of $%s", quantity, itemTitle, itemSkuCode, costFormat.format(cost));
+        return String.format("%d %s (category %s, sku %d) for a total of $%s", quantity, itemTitle, itemCategory, itemSkuCode, costFormat.format(cost));
     }
 }

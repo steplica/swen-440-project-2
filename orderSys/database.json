@@ -1,52 +1,62 @@
 {
-  "categories" : [ {
-    "name" : "Toys4Boyz",
-    "description" : "The hottest toys for the coolest boiz",
-    "products" : [ {
-      "skuCode" : 1,
-      "itemCount" : 15,
-      "threshold" : 5,
-      "reorderAmount" : 25,
-      "title" : "yo-yo",
-      "description" : "It goes up and down.",
-      "cost" : 5
-    }, {
-      "skuCode" : 2,
-      "itemCount" : 5,
-      "threshold" : 2,
-      "reorderAmount" : 10,
-      "title" : "umbrella",
-      "description" : "For those rainy days.",
-      "cost" : 15
-    }, {
-      "skuCode" : 3,
-      "itemCount" : 300,
-      "threshold" : 150,
-      "reorderAmount" : 450,
-      "title" : "garlic bread",
-      "description" : "Food, for the mood.",
-      "cost" : 3
-    } ]
-  }, {
-    "name" : "Fortnite dances",
-    "description" : "The ",
-    "products" : [ {
-      "skuCode" : 4,
-      "itemCount" : 850,
-      "threshold" : 849,
-      "reorderAmount" : 1000,
-      "title" : "the fidget spin",
-      "description" : "it spin",
-      "cost" : 1
-    }, {
-      "skuCode" : 5,
-      "itemCount" : 55,
-      "threshold" : 25,
-      "reorderAmount" : 125,
-      "title" : "gucci",
-      "description" : "Yeet",
-      "cost" : 100
-    } ]
-  } ],
+  "categories" : {
+    "Toys4Boyz" : {
+      "name" : "Toys4Boyz",
+      "description" : "The hottest toys for the coolest boiz",
+      "products" : {
+        "1" : {
+          "skuCode" : 1,
+          "itemCount" : 25,
+          "threshold" : 5,
+          "reorderAmount" : 25,
+          "title" : "yo-yo",
+          "description" : "It goes up and down.",
+          "cost" : 5
+        },
+        "2" : {
+          "skuCode" : 2,
+          "itemCount" : 5,
+          "threshold" : 2,
+          "reorderAmount" : 10,
+          "title" : "umbrella",
+          "description" : "For those rainy days.",
+          "cost" : 15
+        },
+        "3" : {
+          "skuCode" : 3,
+          "itemCount" : 300,
+          "threshold" : 150,
+          "reorderAmount" : 450,
+          "title" : "garlic bread",
+          "description" : "Food, for the mood.",
+          "cost" : 3
+        }
+      }
+    },
+    "Fortnite dances" : {
+      "name" : "Fortnite dances",
+      "description" : "The kids these days",
+      "products" : {
+        "4" : {
+          "skuCode" : 4,
+          "itemCount" : 850,
+          "threshold" : 849,
+          "reorderAmount" : 1000,
+          "title" : "the fidget spin",
+          "description" : "it spin",
+          "cost" : 1
+        },
+        "5" : {
+          "skuCode" : 5,
+          "itemCount" : 125,
+          "threshold" : 25,
+          "reorderAmount" : 125,
+          "title" : "gucci",
+          "description" : "Yeet",
+          "cost" : 100
+        }
+      }
+    }
+  },
   "transactions" : []
 }

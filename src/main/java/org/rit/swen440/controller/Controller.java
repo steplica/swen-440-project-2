@@ -1,10 +1,9 @@
-package org.rit.swen440.controlLayer;
+package org.rit.swen440.controller;
 
-import org.rit.swen440.dataLayer.Category;
-import org.rit.swen440.persistenceLayer.Database;
-import org.rit.swen440.dataLayer.Product;
-import org.rit.swen440.dataLayer.Transaction;
-import org.rit.swen440.util.FileUtils;
+import org.rit.swen440.model.Category;
+import org.rit.swen440.model.Product;
+import org.rit.swen440.model.Transaction;
+import org.rit.swen440.persistence.Database;
 
 import java.util.List;
 import java.util.Optional;
@@ -31,9 +30,7 @@ public class Controller {
 
     private static void initializeDatabase(String directory) {
         if (DATABASE == null) {
-            String databaseFilepath = directory + "/database.json";
-            DATABASE = FileUtils.readJsonAsObject(databaseFilepath, Database.class);
-            DATABASE.setDatabaseFilepath(databaseFilepath);
+            DATABASE = Database.initialize(directory + "/database.json");
         }
     }
 
@@ -43,9 +40,9 @@ public class Controller {
      * @return list of Categories
      */
     public List<String> getCategories() {
-        return DATABASE.getCategories()
+        return DATABASE.getCategories().entrySet()
                 .stream()
-                .map(Category::getName)
+                .map(entry -> entry.getValue().getName())
                 .collect(Collectors.toList());
     }
 
@@ -65,12 +62,9 @@ public class Controller {
      * @return description
      */
     public String getCategoryDescription(String category) {
-        Optional<Category> match = DATABASE.getCategories()
-                .stream()
-                .filter(c -> c.getName()
-                        .equalsIgnoreCase(category))
-                .findFirst();
-        return match.map(Category::getDescription)
+        return Optional.ofNullable(DATABASE.getCategories()
+                                           .get(category)
+                                           .getDescription())
                 .orElse(null);
     }
 
@@ -84,6 +78,7 @@ public class Controller {
         Optional<Category> category = findCategory(categoryName);
 
         return category.map(c -> c.getProducts()
+                .values()
                 .stream()
                 .map(Product::getTitle)
                 .collect(Collectors.toList()))
@@ -121,11 +116,7 @@ public class Controller {
      * @return Category, if present
      */
     private Optional<Category> findCategory(String name) {
-        return DATABASE.getCategories()
-                .stream()
-                .filter(c -> c.getName()
-                        .equalsIgnoreCase(name))
-                .findFirst();
+        return Optional.ofNullable(DATABASE.getCategories().get(name));
     }
 
     public Optional<Product> getProduct(String category, String product) {

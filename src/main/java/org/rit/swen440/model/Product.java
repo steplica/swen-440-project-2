@@ -1,12 +1,8 @@
-package org.rit.swen440.dataLayer;
+package org.rit.swen440.model;
 
-import lombok.AccessLevel;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.math.BigDecimal;
-import java.nio.file.Path;
 
 /**
  * A record of each product type

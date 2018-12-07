@@ -1,4 +1,4 @@
-package org.rit.swen440.presentationLayer;
+package org.rit.swen440.view;
 
 public class Category {
     String desc;
