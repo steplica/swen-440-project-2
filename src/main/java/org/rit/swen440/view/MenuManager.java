@@ -69,7 +69,6 @@ public class MenuManager {
                 break;
             case 2:
                 Level2();
-                break;
             default:
                 System.out.println("\nReturning to Menu");
                 currentLevel = 0;
@@ -137,7 +136,6 @@ public class MenuManager {
 
     public void Level2() {
         System.out.println("This transaction was added to the database \n");
-        currentLevel--;
     }
 
     public boolean OrderQty(String category, String item) {

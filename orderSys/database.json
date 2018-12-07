@@ -4,8 +4,7 @@
       "description" : "The hottest toys for the coolest boiz",
       "products" : {
         "1" : {
-          "skuCode" : 1,
-          "itemCount" : 25,
+          "itemCount" : 26,
           "threshold" : 5,
           "reorderAmount" : 25,
           "title" : "yo-yo",
@@ -13,7 +12,6 @@
           "cost" : 5
         },
         "2" : {
-          "skuCode" : 2,
           "itemCount" : 5,
           "threshold" : 2,
           "reorderAmount" : 10,
@@ -22,7 +20,6 @@
           "cost" : 15
         },
         "3" : {
-          "skuCode" : 3,
           "itemCount" : 300,
           "threshold" : 150,
           "reorderAmount" : 450,
@@ -36,7 +33,6 @@
       "description" : "The kids these days",
       "products" : {
         "4" : {
-          "skuCode" : 4,
           "itemCount" : 850,
           "threshold" : 849,
           "reorderAmount" : 1000,
@@ -45,7 +41,6 @@
           "cost" : 1
         },
         "5" : {
-          "skuCode" : 5,
           "itemCount" : 125,
           "threshold" : 25,
           "reorderAmount" : 125,
@@ -56,5 +51,17 @@
       }
     }
   },
-  "transactions" : []
+  "transactions" : [ {
+    "itemCategory" : "Toys4Boyz",
+    "itemSkuCode" : 1,
+    "itemTitle" : "yo-yo",
+    "quantity" : 5,
+    "cost" : 25
+  }, {
+    "itemCategory" : "Toys4Boyz",
+    "itemSkuCode" : 1,
+    "itemTitle" : "yo-yo",
+    "quantity" : 22,
+    "cost" : 110
+  } ]
 }
