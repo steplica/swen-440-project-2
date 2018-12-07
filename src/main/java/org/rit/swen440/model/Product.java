@@ -1,5 +1,6 @@
 package org.rit.swen440.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -9,6 +10,7 @@ import java.math.BigDecimal;
  */
 @Data
 public class Product {
+    @JsonIgnore
     private int skuCode;
     private int itemCount;
     private int threshold;

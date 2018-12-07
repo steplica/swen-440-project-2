@@ -1,5 +1,6 @@
 package org.rit.swen440.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ import java.util.Optional;
  */
 @Data
 public class Category {
+    @JsonIgnore
     private String name;
     private String description;
 
