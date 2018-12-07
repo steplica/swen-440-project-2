@@ -56,7 +56,7 @@ public class PerformanceTest {
     }
 
     /**
-     * adds 500 transaction entries to the database then queries them and checks how long each operation takes
+     * adds 2000 transaction entries to the database then queries them and checks how long each operation takes
      */
     @Test
     public void AddTwoThousandAndQuery() {
