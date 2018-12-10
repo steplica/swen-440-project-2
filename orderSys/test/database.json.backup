@@ -1,0 +1,18 @@
+{
+  "categories" : {
+    "TestCategory" : {
+      "description" : "Test category description",
+      "products" : {
+        "1" : {
+          "itemCount" : 48,
+          "threshold" : 1,
+          "reorderAmount" : 1000,
+          "title" : "Gucci Gang - Lil Pump",
+          "description" : "Gucci gang, Gucci gang, Gucci gang, Gucci gang Gucci gang, Gucci gang, Gucci gang (Gucci gang!) Spend ten racks on a new chain",
+          "cost" : 5
+        }
+      }
+    }
+  },
+  "transactions" : [ ]
+}

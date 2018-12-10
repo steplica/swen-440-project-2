@@ -39,13 +39,14 @@ public class Database {
             return category;
         });
 
+        Runtime.getRuntime().addShutdownHook(new Thread(database::updateDatabaseFile));
+
         return database;
     }
 
     public void addTransaction(Transaction transaction) {
         updateInventory(transaction);
         transactions.add(transaction);
-        updateDatabaseFile();
     }
 
     private void updateInventory(Transaction transaction) {
